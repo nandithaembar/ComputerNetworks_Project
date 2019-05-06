@@ -1,0 +1,36 @@
+From 905c60edf2103e0d0b758fcb3f8fa3f3b2f65896 Mon Sep 17 00:00:00 2001
+From: Alex Beltran <abeltran2@ucmerced.edu>
+Date: Tue, 23 Aug 2016 22:48:09 +0000
+Subject: [PATCH 1/1] Force old compilers to be used.
+
+---
+ support/make/extras/sim.extra | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/support/make/extras/sim.extra b/support/make/extras/sim.extra
+index 94210bd..78c3e82 100644
+--- a/support/make/extras/sim.extra
++++ b/support/make/extras/sim.extra
+@@ -1,13 +1,16 @@
+ #-*-Makefile-*- vim:syntax=make
+ 
+-export GCC=gcc
+-GPP=g++
++#export GCC=gcc
++#GPP=g++
++export GCC=gcc-4.8
++GPP=g++-4.8
++
+ OPTFLAGS = -g -O0
+ LIBS = -lm -lstdc++
+ PFLAGS += -DTOSSIM -fnesc-nido-tosnodes=1000 -fnesc-simulate -fnesc-nido-motenumber='sim_node\(\)' -fnesc-gcc=$(GCC)
+ PFLAGS += -I%T/lib/tossim
+ WFLAGS = -Wno-nesc-data-race
+-PYTHON_VERSION ?= $(shell python --version 2>&1 | sed 's/Python 2\.\([0-9]\)\.[0-9]+\{0,1\}/2.\1/')
++PYTHON_VERSION ?= $(shell python --version 2>&1 | sed 's/Python 2\.\([0-9]\)\.\([0-9+]\)*/2.\1/')
+ 
+ TOSMAKE_BUILD_DIR = simbuild/$(PLATFORM)
+ TOSSIMPY_DIR      = $(TINYOS_OS_DIR)/lib/tossim
+-- 
+2.7.4
+
